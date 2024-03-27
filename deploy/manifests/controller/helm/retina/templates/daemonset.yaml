@@ -22,8 +22,6 @@ spec:
     spec:
       hostNetwork: true
       serviceAccountName: {{ .Values.serviceAccount.name }}
-      nodeSelector:
-        kubernetes.io/os: linux
       initContainers:
         - name: init-retina
           image: {{ .Values.image.initRepository }}:{{ .Values.image.tag }}
@@ -36,7 +34,7 @@ spec:
             mountPath: /sys/fs/bpf
             mountPropagation: Bidirectional
       containers:
-        - name: {{ include "retina.name" . }} 
+        - name: {{ include "retina.name" . }}
           livenessProbe:
             httpGet:
               path: /metrics
